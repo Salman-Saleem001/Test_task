@@ -1,13 +1,7 @@
 import 'package:bloc_demo/main_export.dart';
 
-extension ExtensionOnInt on int{
+extension ExtensionOnInt on int {
+  SizedBox hp() => SizedBox(height: toDouble());
 
-  SizedBox hp(){
-    return SizedBox(height: toDouble(),);
-  }
-
-  SizedBox wp(){
-    return SizedBox(width: toDouble(),);
-  }
-
+  SizedBox wp() => SizedBox(width: toDouble());
 }

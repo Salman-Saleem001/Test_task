@@ -1,6 +1,6 @@
-import 'dart:async';
 
-import '../../../../../main_export.dart';
+
+import 'package:bloc_demo/main_export.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserUseCase _userUseCase = sl.get();

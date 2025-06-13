@@ -1,5 +1,7 @@
-import '../../../../../main_export.dart';
 
+
+
+import 'package:bloc_demo/main_export.dart';
 
 class UserModel extends UserEntity implements Equatable{
   UserModel({required super.users});

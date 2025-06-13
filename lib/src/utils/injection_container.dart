@@ -3,7 +3,7 @@ import '../../main_export.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerFactory(() => UserBloc());
+  // sl.registerFactory(() => UserBloc());
   // Register datasource
   sl.registerSingleton<UserDataSource>(UserDataSource());
   // Register repository

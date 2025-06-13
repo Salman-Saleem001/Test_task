@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import '../../../../../main_export.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {

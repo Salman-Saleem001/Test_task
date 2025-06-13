@@ -1,4 +1,4 @@
-import '../../../../../main_export.dart';
+import 'package:bloc_demo/main_export.dart';
 
 class UserUseCase implements UseCase<UserEntity, MessageParams> {
   final UserRepo _userRepo;
