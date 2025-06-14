@@ -2,35 +2,23 @@
 
 import 'package:bloc_demo/main_export.dart';
 
-class UserBloc extends Bloc<UserEvent, UserState> {
-  final UserUseCase _userUseCase = sl.get();
-  UserBloc() : super(UserInitialState()) {
-    on<GetUsers>(_getUserData);
-    on<ToggleUserLike>(_toggleUserLike);
+class CollectionBloc extends Bloc<UserEvent, CollectionState> {
+  final CollectionUseCase _collectionUseCase = sl.get();
+  CollectionBloc() : super(CollectionInitialState()) {
+    on<GetCollection>(_getCollectionData);
   }
 
-  Future<void> _getUserData(GetUsers event, emit) async {
+  Future<void> _getCollectionData(GetCollection event, emit) async {
     debugPrint("event is $event");
-    emit(UserLoading());
-    final result = await _userUseCase(MessageParams(data: {}));
-    debugPrint("event is $event");
+    emit(CollectionLoading());
+    await Future.delayed(const Duration(seconds: 2));
+    final result = await _collectionUseCase(MessageParams(data: {}));
     result.fold((failure) {
       debugPrint("error is ${(failure.message)}");
       emit(ErrorInLoading());
-    }, (users) {
-      // debugPrint("users are ${users.users.first.toJson()}");
-      emit(UserFetched(user: users.users));
+    }, (collection) {
+      debugPrint("users are ${collection.collection.first}");
+      emit(CollectionFetched(collection: collection.collection));
     });
-  }
-
-  FutureOr<void> _toggleUserLike(ToggleUserLike event, Emitter<UserState> emit) {
-    final currentState = state;
-    if (currentState is UserFetched) {
-      final updatedUsers = List<User>.from(currentState.user);
-      final oldUser = updatedUsers[event.index];
-      final updatedUser = oldUser.copyWith(completed: !(oldUser.completed??false));
-      updatedUsers[event.index] = updatedUser;
-      emit(UserFetched(user: updatedUsers));
-    }
   }
 }

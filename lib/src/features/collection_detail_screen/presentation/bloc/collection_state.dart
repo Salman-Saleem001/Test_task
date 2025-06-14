@@ -11,7 +11,7 @@ class UserInitialState extends UserState{}
 class UserLoading extends UserState{}
 class ErrorInLoading extends UserState{}
 class UserFetched extends UserState{
-  final List<User> user;
+  final List<CollectionItem> user;
   const UserFetched({required this.user});
   @override
   List<Object> get props => [user];

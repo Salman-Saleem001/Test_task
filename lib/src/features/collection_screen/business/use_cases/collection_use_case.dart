@@ -1,10 +1,10 @@
 import 'package:bloc_demo/main_export.dart';
 
-class UserUseCase implements UseCase<UserEntity, MessageParams> {
-  final UserRepo _userRepo;
-  UserUseCase(this._userRepo);
+class CollectionUseCase implements UseCase<CollectionEntity, MessageParams> {
+  final CollectionRepo _collectionRepo;
+  CollectionUseCase(this._collectionRepo);
   @override
-  Future<Either<Failure, UserEntity>> call(MessageParams params) => _userRepo.viewUsers(params.data);
+  Future<Either<Failure, CollectionEntity>> call(MessageParams params) => _collectionRepo.viewCollection(params.data);
 }
 
 class MessageParams extends Equatable {

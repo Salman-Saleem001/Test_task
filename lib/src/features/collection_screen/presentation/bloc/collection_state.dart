@@ -1,20 +1,20 @@
 import 'package:bloc_demo/main_export.dart';
 
-sealed class UserState extends Equatable{
-  const UserState();
+sealed class CollectionState extends Equatable{
+  const CollectionState();
 
   @override
   List<Object> get props => [];
 }
 
-class UserInitialState extends UserState{}
-class UserLoading extends UserState{}
-class ErrorInLoading extends UserState{}
-class UserFetched extends UserState{
-  final List<User> user;
-  const UserFetched({required this.user});
+class CollectionInitialState extends CollectionState{}
+class CollectionLoading extends CollectionState{}
+class ErrorInLoading extends CollectionState{}
+class CollectionFetched extends CollectionState{
+  final List<CollectionItem> collection;
+  const CollectionFetched({required this.collection});
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [collection];
   @override
   bool get stringify => true;
 

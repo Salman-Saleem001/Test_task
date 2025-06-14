@@ -1,21 +1,18 @@
-
-
-
 import 'package:bloc_demo/main_export.dart';
 
-class UserModel extends UserEntity implements Equatable{
-  UserModel({required super.users});
+class CollectionModel extends CollectionEntity implements Equatable{
+  CollectionModel({required super.collection});
 
 
-  factory UserModel.fromJson(List<dynamic> json) {
-    return UserModel(
-      users:  List<User>.from(json.map((x) => User.fromJson(x))),
+  factory CollectionModel.fromJson(List<dynamic> json) {
+    return CollectionModel(
+      collection:  List<CollectionItem>.from(json.map((x) => CollectionItem.fromJson(x))),
     );
   }
 
   @override
   // TODO: implement props
-  List<Object?> get props => [super.users];
+  List<Object?> get props => [super.collection];
 
   @override
   // TODO: implement stringify

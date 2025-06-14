@@ -1,7 +1,7 @@
 import '../../../../../main_export.dart';
 
 class UserDataSource{
-  Future<Either<Failure, UserEntity>> getUsers() async {
+  Future<Either<Failure, CollectionEntity>> getUsers() async {
     try {
       final response = await MyApiCalls.callGetReq();
       return response.fold(
@@ -9,7 +9,7 @@ class UserDataSource{
             (data) {
           try {
             if (data == null) throw Exception('Null response data');
-            final userModel = UserModel.fromJson(data);
+            final userModel = CollectionModel.fromJson(data);
             return Right(userModel);
           } catch (e) {
             return Left(ParsingFailure('Data parsing failed: $e'));
