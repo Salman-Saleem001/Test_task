@@ -7,4 +7,4 @@ export 'data/repository/collection_repo_implementation.dart';
 export 'presentation/bloc/collection_bloc.dart';
 export 'presentation/bloc/collection_event.dart';
 export 'presentation/bloc/collection_state.dart';
-export 'presentation/ui/collection.dart';
+export 'presentation/ui/collection_view.dart';

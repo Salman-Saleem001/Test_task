@@ -1,22 +1,7 @@
 import 'package:bloc_demo/main_export.dart';
 
-class SignInView extends StatefulWidget {
+class SignInView extends StatelessWidget {
   const SignInView({super.key});
-
-  @override
-  State<SignInView> createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
-
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +14,7 @@ class _SignInViewState extends State<SignInView> {
           }
           if (state.isValid && !state.isSubmitting && state.error == null) {
             debugPrint("Login successful");
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionView()));
           }
         },
         child: Padding(
@@ -36,11 +22,10 @@ class _SignInViewState extends State<SignInView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                borderRadius: BorderRadius.circular(100),
                 child: const Icon(Icons.arrow_back, color: AppColors.greyColor1, size: 24),
               ),
               40.hp(),
@@ -97,12 +82,5 @@ class _SignInViewState extends State<SignInView> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 }

@@ -24,7 +24,7 @@ class SignInTextField extends StatelessWidget {
       style: TextStyle(color: AppColors.greyColor1, fontSize: 16, fontFamily: Assets.latoRegular),
       decoration: InputDecoration(
         labelText: labelText ?? "Email",
-        labelStyle: TextStyle(color: AppColors.greyColor2, fontSize: 14, fontFamily: Assets.latoRegular),
+        labelStyle: TextStyle(color: AppColors.greyColor3, fontSize: 14, fontFamily: Assets.latoRegular),
         floatingLabelStyle: TextStyle(color: AppColors.buttonColor, fontSize: 12, fontFamily: Assets.latoRegular),
         focusColor: AppColors.buttonColor,
         suffixIcon:

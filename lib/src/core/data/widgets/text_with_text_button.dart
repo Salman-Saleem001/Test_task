@@ -12,7 +12,7 @@ class TextWithTextButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomText(text: text, fontSize: 16, textColor: AppColors.greyColor2),
+        CustomText(text: text, fontSize: 16, textColor: AppColors.greyColor3),
         28.wp(),
         TextButton(
           onPressed: onPressed,
