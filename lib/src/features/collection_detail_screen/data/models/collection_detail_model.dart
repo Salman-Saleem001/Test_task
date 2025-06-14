@@ -4,9 +4,9 @@ import 'package:bloc_demo/src/features/collection_detail_screen/collection_detai
 class CollectionDetailModel extends CollectionDetailEntity implements Equatable{
   CollectionDetailModel({required super.collection});
 
-  factory CollectionDetailModel.fromJson(List<dynamic> json) {
+  factory CollectionDetailModel.fromJson(Map<String, dynamic> json) {
     return CollectionDetailModel(
-      collection:  List<CollectionDetail>.from(json.map((x) => CollectionDetail.fromJson(x))),
+      collection: CollectionDetail.fromJson(json),
     );
   }
 

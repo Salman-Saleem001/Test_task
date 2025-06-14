@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CollectionDetailEntity{
-  late final List<CollectionDetail> _collection;
-  List<CollectionDetail> get collection=> _collection;
-  CollectionDetailEntity({required List<CollectionDetail> collection}): _collection=collection;
+  late final CollectionDetail _collection;
+  CollectionDetail get collection=> _collection;
+  CollectionDetailEntity({required CollectionDetail collection}): _collection=collection;
 }
 
 class CollectionDetail {
