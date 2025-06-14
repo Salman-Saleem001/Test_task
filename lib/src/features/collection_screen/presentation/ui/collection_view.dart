@@ -1,46 +1,123 @@
 import 'package:bloc_demo/main_export.dart';
-import 'package:bloc_demo/src/features/collection_detail_screen/collection_detail_export.dart';
+import '../../../collection_detail_screen/collection_detail_export.dart';
 
-class CollectionView extends StatefulWidget {
+class CollectionView extends StatelessWidget {
   const CollectionView({super.key});
 
   @override
-  State<CollectionView> createState() => _CollectionViewState();
+  Widget build(BuildContext context) {
+    return Center(
+      child: BlocBuilder<CollectionBloc, CollectionState>(
+        builder: (BuildContext context, state) {
+          switch (state) {
+            case CollectionFetched():
+              return GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: 20,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.6,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+                itemBuilder: (_, index) {
+                  final collectionData = state.collection[index];
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionDetailScreen()));
+                    },
+                    child: CollectionCard(
+                      image: collectionData.imageUrl,
+                      name: collectionData.name,
+                      vintage: collectionData.vintage,
+                      caskNumber: collectionData.caskNumber,
+                      availableBottles: collectionData.availableBottles,
+                      totalBottles: collectionData.totalBottles,
+                      id: collectionData.id,
+                    ),
+                  );
+                },
+              );
+            // case ErrorInLoading():
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText(text: "Something went wrong", fontSize: 12),
+                  5.hp(),
+                  GestureDetector(
+                    onTap: () {
+                      context.read<CollectionBloc>().add(GetCollection());
+                    },
+                    child: CustomText(text: "Try again", fontSize: 12, textColor: AppColors.buttonColor),
+                  ),
+                ],
+              );
+            default:
+              return CircularProgressIndicator.adaptive();
+          }
+        },
+      ),
+    );
+  }
 }
 
-class _CollectionViewState extends State<CollectionView> {
+class CollectionCard extends StatelessWidget {
+  const CollectionCard({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.vintage,
+    required this.caskNumber,
+    required this.availableBottles,
+    required this.totalBottles,
+    required this.id,
+  });
+
+  final int id;
+  final String image;
+  final String name;
+  final int vintage;
+  final String caskNumber;
+  final int availableBottles;
+  final int totalBottles;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        surfaceTintColor: AppColors.backgroundColor,
-        backgroundColor: AppColors.backgroundColor,
-        elevation: 0,
-        title: CustomText(text: 'My collection', fontSize: 32, fontFamily: Assets.ebGaramondMedium),
-        actions: [
-          Stack(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionDetailScreen()));
+    return ColoredBox(
+      color: AppColors.containerColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Image.network(
+                alignment: Alignment.center,
+                image,
+                scale: 2.0,
+                fit: BoxFit.cover,
+                errorBuilder:
+                    (context, error, stackTrace) =>
+                    Center(child: const Icon(Icons.error, color: AppColors.buttonColor, size: 32)),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  final val = loadingProgress.cumulativeBytesLoaded;
+                  final total = loadingProgress.expectedTotalBytes;
+                  final progress = val / total!;
+                  return Center(child: CircularProgressIndicator.adaptive(value: progress));
                 },
-                borderRadius: BorderRadius.circular(100),
-                child:  Image.asset(Assets.notificationIcon, width: 24, height: 24),
               ),
-              Positioned(
-                right: 2,
-                bottom: 3,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.redColor),
-                  child: SizedBox(height: 7, width: 7),
-                ),
-              ),
-            ],
-          ),
-          10.wp(),
-        ],
+            ),
+            CustomText(text: "$name \n$vintage $caskNumber ", fontSize: 22, fontFamily: Assets.ebGaramondMedium),
+            CustomText(
+              text: "($availableBottles/$totalBottles))",
+              fontSize: 12,
+              fontFamily: Assets.ebGaramondMedium,
+              textColor: AppColors.greyColor2,
+            ),
+          ],
+        ),
       ),
     );
   }
