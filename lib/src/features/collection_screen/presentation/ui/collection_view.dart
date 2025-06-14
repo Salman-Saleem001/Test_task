@@ -10,27 +10,35 @@ class CollectionView extends StatelessWidget {
         builder: (BuildContext context, state) {
           switch (state) {
             case CollectionFetched():
-              return GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 20,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.6,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                ),
-                itemBuilder: (_, index) {
-                  final collectionData = state.collection[index];
-                  return CollectionCard(
-                    image: collectionData.imageUrl,
-                    name: collectionData.name,
-                    vintage: collectionData.vintage,
-                    caskNumber: collectionData.caskNumber,
-                    availableBottles: collectionData.availableBottles,
-                    totalBottles: collectionData.totalBottles,
-                    id: collectionData.id,
-                  );
+              return RefreshIndicator(
+                backgroundColor: AppColors.greyScaleColor,
+                color: AppColors.buttonColor,
+                onRefresh: () async{
+                  context.read<CollectionBloc>().add(GetCollection());
+                  return;
                 },
+                child: GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: 20,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.6,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                  ),
+                  itemBuilder: (_, index) {
+                    final collectionData = state.collection[index];
+                    return CollectionCard(
+                      image: collectionData.imageUrl,
+                      name: collectionData.name,
+                      vintage: collectionData.vintage,
+                      caskNumber: collectionData.caskNumber,
+                      availableBottles: collectionData.availableBottles,
+                      totalBottles: collectionData.totalBottles,
+                      id: collectionData.id,
+                    );
+                  },
+                ),
               );
             case ErrorInLoading():
               return Column(
@@ -83,13 +91,12 @@ class CollectionCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Image.network(
                 alignment: Alignment.center,
                 image,
-                scale: 2.0,
                 fit: BoxFit.cover,
                 errorBuilder:
                     (context, error, stackTrace) =>
@@ -103,12 +110,17 @@ class CollectionCard extends StatelessWidget {
                 },
               ),
             ),
-            CustomText(text: "$name \n$vintage $caskNumber ", fontSize: 22, fontFamily: Assets.ebGaramondMedium),
-            CustomText(
-              text: "($availableBottles/$totalBottles))",
-              fontSize: 12,
-              fontFamily: Assets.ebGaramondMedium,
-              textColor: AppColors.greyColor2,
+            Align(
+              alignment: Alignment.bottomLeft,
+                child: CustomText(text: "$name \n$vintage $caskNumber ", fontSize: 22, fontFamily: Assets.ebGaramondMedium)),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: CustomText(
+                text: "($availableBottles/$totalBottles))",
+                fontSize: 12,
+                fontFamily: Assets.ebGaramondMedium,
+                textColor: AppColors.greyColor2,
+              ),
             ),
           ],
         ),

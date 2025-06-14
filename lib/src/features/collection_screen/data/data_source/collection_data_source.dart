@@ -27,7 +27,7 @@ class CollectionDataSource{
   Future<Either<Failure, CollectionEntity>> loadCollectionItems() async {
     try {
       final String jsonString = await rootBundle.loadString('assets/json/collection.json');
-      debugPrint("json is $jsonString");
+      // debugPrint("json is $jsonString");
       final List<dynamic> jsonData = json.decode(jsonString);
 
       final List<CollectionItem> items = jsonData.map((item) => CollectionItem.fromJson(item)).toList();
