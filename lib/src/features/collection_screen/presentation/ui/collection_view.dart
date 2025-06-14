@@ -1,4 +1,5 @@
 import 'package:bloc_demo/main_export.dart';
+import '../../../collection_detail_screen/collection_detail_export.dart';
 
 class CollectionView extends StatelessWidget {
   const CollectionView({super.key});
@@ -28,7 +29,12 @@ class CollectionView extends StatelessWidget {
                   ),
                   itemBuilder: (_, index) {
                     final collectionData = state.collection[index];
-                    return CollectionCard(
+                    return InkWell(
+                    onTap: (){
+                      context.read<CollectionDetailBloc>().add(GetCollectionDetail());
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionDetailScreen()));
+                    },
+                    child:CollectionCard(
                       image: collectionData.imageUrl,
                       name: collectionData.name,
                       vintage: collectionData.vintage,
@@ -36,8 +42,8 @@ class CollectionView extends StatelessWidget {
                       availableBottles: collectionData.availableBottles,
                       totalBottles: collectionData.totalBottles,
                       id: collectionData.id,
-                    );
-                  },
+                    ),
+                  );},
                 ),
               );
             case ErrorInLoading():
