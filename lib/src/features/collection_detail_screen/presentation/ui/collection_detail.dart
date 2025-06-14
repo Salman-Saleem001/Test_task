@@ -17,7 +17,7 @@ class _CollectionDetailScreenState extends State<CollectionDetailScreen> {
           builder: (BuildContext context, state) {
             switch (state) {
               case CollectionDetailFetched():
-                final collectionDetailData = state.collection;
+                final CollectionDetail collectionDetailData = state.collection;
                 return DefaultTabController(
                   length: 3,
                   child: Scaffold(
@@ -117,8 +117,8 @@ class _CollectionDetailScreenState extends State<CollectionDetailScreen> {
                                       Flexible(
                                         child: TabBarView(
                                           children: [
-                                            DetailsTab(),
-                                            VideoPlayerScreen(),
+                                            DetailsTab(collectionDetail: collectionDetailData,),
+                                            TestingNotesScreen(collectionDetail: collectionDetailData,),
                                             const Center(child: Text('History content')),
                                           ],
                                         ),
@@ -167,7 +167,8 @@ class _CollectionDetailScreenState extends State<CollectionDetailScreen> {
 }
 
 class DetailsTab extends StatelessWidget {
-  const DetailsTab({super.key});
+  final CollectionDetail collectionDetail;
+  const DetailsTab({super.key, required this.collectionDetail});
 
   @override
   Widget build(BuildContext context) {
@@ -185,17 +186,17 @@ class DetailsTab extends StatelessWidget {
       "Finish",
     ];
     List<String> values=[
-      "Talisker",
-      "Isle of Skye",
-      "Scotland",
-      "Single Malt Scotch",
-      "18 Years'",
-      "2003",
-      "2021",
-      "2504",
-      "45.8%",
-      "700ml",
-      "Oak Cask",
+      collectionDetail.details.distillery,
+      collectionDetail.details.region,
+      collectionDetail.details.country,
+      collectionDetail.details.type,
+      collectionDetail.details.ageStatement,
+      collectionDetail.details.filled,
+      collectionDetail.details.bottled,
+      collectionDetail.details.caskNumber,
+      collectionDetail.details.abv,
+      collectionDetail.details.size,
+      collectionDetail.details.filled,
     ];
     Widget buildDetailRow(String label, String value) {
       return Row(
@@ -217,15 +218,15 @@ class DetailsTab extends StatelessWidget {
   }
 }
 
-
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+class TestingNotesScreen extends StatefulWidget {
+  final CollectionDetail collectionDetail;
+  const TestingNotesScreen({super.key, required this.collectionDetail});
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<TestingNotesScreen> createState() => _TestingNotesScreenState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _TestingNotesScreenState extends State<TestingNotesScreen> {
   late VideoPlayerController _controller;
   bool _isInitialized = false;
 
@@ -297,12 +298,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
             CustomText(text: "Tasting notes", fontSize: 22, fontFamily: Assets.ebGaramondMedium,textColor:AppColors.whiteColor),
         4.hp(),
-            CustomText(text: "by Charles MacLean MBE", fontSize: 16, fontFamily: Assets.latoRegular,textColor:AppColors.whiteColor),
+            CustomText(text: widget.collectionDetail.tastingNotes.author, fontSize: 16, fontFamily: Assets.latoRegular,textColor:AppColors.whiteColor),
             16.hp(),
 
-            notesSection("Nose", ["Description", "Description", "Description"], sectionColor),
-            notesSection("Palate", ["Description", "Description", "Description"], sectionColor),
-            notesSection("Finish", ["Description", "Description", "Description"], sectionColor),
+            notesSection(widget.collectionDetail.tastingNotes.sections[0].title, [widget.collectionDetail.tastingNotes.sections[0].descriptions[0],widget.collectionDetail.tastingNotes.sections[0].descriptions[1] , widget.collectionDetail.tastingNotes.sections[0].descriptions[2]], sectionColor),
+            notesSection(widget.collectionDetail.tastingNotes.sections[1].title, [widget.collectionDetail.tastingNotes.sections[1].descriptions[0],widget.collectionDetail.tastingNotes.sections[1].descriptions[1] , widget.collectionDetail.tastingNotes.sections[1].descriptions[2]], sectionColor),
+            notesSection(widget.collectionDetail.tastingNotes.sections[2].title, [widget.collectionDetail.tastingNotes.sections[2].descriptions[0],widget.collectionDetail.tastingNotes.sections[2].descriptions[1] , widget.collectionDetail.tastingNotes.sections[2].descriptions[2]], sectionColor),
+
             30.hp(),
           ],
         ),
@@ -349,7 +351,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: CustomText(text: desc, fontSize: 16, fontFamily: Assets.latoRegular,textColor:AppColors.whiteColor),
+                child: CustomText(text: desc, fontSize: 16, fontFamily: Assets.latoRegular,textColor:AppColors.whiteColor,maxLines: 4,),
 
               ),
             ),

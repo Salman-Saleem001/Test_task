@@ -30,25 +30,25 @@ class CollectionDetailDataSource{
             TastingSection(
               title: "Nose",
               descriptions: [
-                "Rich maritime aromas with hints of sea salt",
-                "Subtle peat smoke intertwined with citrus notes",
-                "Vanilla and caramel undertones from oak aging",
+                "Rich maritime aromas with hints of sea salt.",
+                "Subtle peat smoke intertwined with citrus notes.",
+                "Vanilla and caramel undertones from oak aging.",
               ],
             ),
             TastingSection(
               title: "Palate",
               descriptions: [
-                "Peppery spice that builds gradually",
-                "Complex layers of dried fruit and dark chocolate",
-                "Distinctive briny character with oyster shell minerality",
+                "Peppery spice that builds gradually.",
+                "Complex layers of dried fruit and dark chocolate.",
+                "Distinctive briny character with oyster shell minerality.",
               ],
             ),
             TastingSection(
               title: "Finish",
               descriptions: [
-                "Long, warming and satisfyingly smoky",
-                "Gentle sweetness lingers with traces of black pepper",
-                "Final notes of oak and sea spray",
+                "Long, warming and satisfyingly smoky.",
+                "Gentle sweetness lingers with traces of black pepper.",
+                "Final notes of oak and sea spray.",
               ],
             ),
           ],
