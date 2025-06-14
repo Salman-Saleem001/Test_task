@@ -5,9 +5,9 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // sl.registerFactory(() => UserBloc());
   // Register datasource
-  sl.registerSingleton<UserDataSource>(UserDataSource());
+  sl.registerSingleton<CollectionDataSource>(CollectionDataSource());
   // Register repository
-  sl.registerSingleton<UserRepo>(UserRepositoryImplementation(sl<UserDataSource>()));
+  sl.registerSingleton<CollectionRepo>(UserRepositoryImplementation(sl<CollectionDataSource>()));
   // Register use cases
-  sl.registerSingleton<UserUseCase>(UserUseCase(sl<UserRepo>()));
+  sl.registerSingleton<CollectionUseCase>(CollectionUseCase(sl<CollectionRepo>()));
 }

@@ -1,48 +1,41 @@
 
-class UserEntity{
-  late final List<User> _users;
-  List<User> get users => _users;
-  UserEntity({required List<User> users}): _users=users;
+class CollectionEntity{
+  late final List<CollectionItem> _collection;
+  List<CollectionItem> get collection=> _collection;
+  CollectionEntity({required List<CollectionItem> collection}): _collection=collection;
 }
 
-class User {
-  User({
-      this.userId, 
-      this.id, 
-      this.title, 
-      this.completed,});
+class CollectionItem {
+  final int id;
+  final String name;
+  final int vintage;
+  final String caskNumber;
+  final String imageUrl;
+  final int availableBottles;
+  final int totalBottles;
+  final String detailsKey;
 
-  User copyWith({
-    int? userId,
-    int? id,
-    String? title,
-    bool? completed,
-  }) {
-    return User(
-      userId: userId ?? this.userId,
-      id: id ?? this.id,
-      title: title ?? this.title,
-      completed: completed ?? this.completed,
+  CollectionItem({
+    required this.id,
+    required this.name,
+    required this.vintage,
+    required this.caskNumber,
+    required this.imageUrl,
+    required this.availableBottles,
+    required this.totalBottles,
+    required this.detailsKey,
+  });
+
+  factory CollectionItem.fromJson(Map<String, dynamic> json) {
+    return CollectionItem(
+      id: json['id'],
+      name: json['name'],
+      vintage: json['vintage'],
+      caskNumber: json['cask_number'],
+      imageUrl: json['image_url'],
+      availableBottles: json['available_bottles'],
+      totalBottles: json['total_bottles'],
+      detailsKey: json['details_key'],
     );
-  }
-
-  User.fromJson(dynamic json) {
-    userId = json['userId'];
-    id = json['id'];
-    title = json['title'];
-    completed = json['completed'];
-  }
-  int? userId;
-  int? id;
-  String? title;
-  bool? completed;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['userId'] = userId;
-    map['id'] = id;
-    map['title'] = title;
-    map['completed'] = completed;
-    return map;
   }
 }

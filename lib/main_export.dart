@@ -11,3 +11,4 @@ export 'src/res/res_export.dart';
 export 'package:flutter/services.dart';
 export 'package:video_player/video_player.dart';
 export 'package:equatable/equatable.dart';
+export 'dart:convert';

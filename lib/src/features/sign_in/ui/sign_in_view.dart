@@ -14,11 +14,12 @@ class SignInView extends StatelessWidget {
           }
           if (state.isValid && !state.isSubmitting && state.error == null) {
             debugPrint("Login successful");
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionView()));
+            context.read<CollectionBloc>().add(GetCollection());
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomView()));
           }
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 80),
+          padding: const EdgeInsets.fromLTRB(16.0, 80.0, 16.0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,28 +54,34 @@ class SignInView extends StatelessWidget {
                 },
               ),
               50.hp(),
-              CustomButton(
-                child: BlocBuilder<SignInBloc, SignInState>(
-                  builder: (BuildContext context, state) {
-                    if (state.isSubmitting) {
-                      return SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: const CircularProgressIndicator(color: AppColors.backgroundColor, strokeWidth: 2.0),
-                      );
-                    }
-                    return CustomText(
-                      text: "Continue",
-                      fontSize: 16,
-                      textColor: AppColors.greyScaleColor,
-                      fontFamily: Assets.ebGaramondMedium,
-                    );
-                  },
-                ),
-                onPressed: () {
-                  context.read<SignInBloc>().add(SubmitSignIn());
+              BlocBuilder<SignInBloc, SignInState>(
+                builder: (BuildContext context, state) {
+                  return CustomButton(
+                    child:
+                        state.isSubmitting
+                            ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: const CircularProgressIndicator(
+                                color: AppColors.backgroundColor,
+                                strokeWidth: 2.0,
+                              ),
+                            )
+                            : CustomText(
+                              text: "Continue",
+                              fontSize: 16,
+                              textColor: AppColors.greyScaleColor,
+                              fontFamily: Assets.ebGaramondMedium,
+                            ),
+                    onPressed: () {
+                      if(!state.isSubmitting){
+                        context.read<SignInBloc>().add(SubmitSignIn());
+                      }
+                    },
+                  );
                 },
               ),
+
               50.hp(),
               TextWithTextButton(text: 'Can’t sign in?', buttonText: 'Recover password', onPressed: () {}),
             ],
