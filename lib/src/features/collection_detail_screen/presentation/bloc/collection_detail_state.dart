@@ -1,20 +1,21 @@
 import 'package:bloc_demo/main_export.dart';
+import '../../business/entity/collection_detail_entity.dart';
 
-sealed class UserState extends Equatable{
-  const UserState();
+sealed class CollectionDetailState extends Equatable{
+  const CollectionDetailState();
 
   @override
   List<Object> get props => [];
 }
 
-class UserInitialState extends UserState{}
-class UserLoading extends UserState{}
-class ErrorInLoading extends UserState{}
-class UserFetched extends UserState{
-  final List<CollectionItem> user;
-  const UserFetched({required this.user});
+class CollectionDetailInitialState extends CollectionDetailState{}
+class CollectionDetailLoading extends CollectionDetailState{}
+class ErrorInCollectionDetailLoading extends CollectionDetailState{}
+class CollectionDetailFetched extends CollectionDetailState{
+  final CollectionDetail collection;
+  const CollectionDetailFetched({required this.collection});
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [collection];
   @override
   bool get stringify => true;
 

@@ -7,8 +7,8 @@ class CollectionDetailDataSource{
     try {
       final data = CollectionDetail(
         id: "2504",
-        title: "Talisker 18 Year old",
-        imageUrl: "https://example.com/bottle-image.jpg",
+        title: "Talisker",
+        imageUrl: Assets.dummySpringImage,
         yearOld: 18,
         bottleId: "135/184",
         details: BottleDetails(

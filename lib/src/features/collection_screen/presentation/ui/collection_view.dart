@@ -24,6 +24,7 @@ class CollectionView extends StatelessWidget {
                   final collectionData = state.collection[index];
                   return InkWell(
                     onTap: (){
+                      context.read<CollectionDetailBloc>().add(GetCollectionDetail());
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionDetailScreen()));
                     },
                     child: CollectionCard(
