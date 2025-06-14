@@ -1,4 +1,5 @@
 import 'package:bloc_demo/main_export.dart';
+import 'package:bloc_demo/src/features/collection_detail_screen/collection_detail_export.dart';
 
 class CollectionView extends StatefulWidget {
   const CollectionView({super.key});
@@ -22,7 +23,9 @@ class _CollectionViewState extends State<CollectionView> {
           Stack(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CollectionDetailScreen()));
+                },
                 borderRadius: BorderRadius.circular(100),
                 child:  Image.asset(Assets.notificationIcon, width: 24, height: 24),
               ),

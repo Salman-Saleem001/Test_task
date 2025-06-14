@@ -9,4 +9,5 @@ export 'src/features/features_export.dart';
 export 'src/utils/utils_export.dart';
 export 'src/res/res_export.dart';
 export 'package:flutter/services.dart';
+export 'package:video_player/video_player.dart';
 export 'package:equatable/equatable.dart';
